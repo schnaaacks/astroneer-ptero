@@ -1,6 +1,10 @@
 FROM docker.io/whalybird/astroneer-server:latest
 
-COPY --chmod=755 entrypoint-ptero.sh /entrypoint-ptero.sh
+# Ensure directory exists
+RUN mkdir -p /home/container/astrotux
 
-ENTRYPOINT ["/entrypoint-ptero.sh"]
-CMD []
+# Remove original config if it exists
+RUN rm -f /astrotux/launcher.toml
+
+# Create symlink
+RUN ln -s /home/container/astrotux/launcher.toml /astrotux/launcher.toml
